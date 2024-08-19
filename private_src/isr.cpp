@@ -14,12 +14,6 @@ static void SafeRun(std::function<void()> &func)
 
 extern "C"
 {
-    void USART1_IRQHandler()
-    {
-        std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn));
-        SafeRun(func);
-    }
-
     void TIM3_IRQHandler()
     {
         std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::TIM3_IRQn));
