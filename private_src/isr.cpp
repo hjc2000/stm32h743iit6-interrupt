@@ -20,6 +20,12 @@ extern "C"
         SafeRun(func);
     }
 
+    void TIM3_IRQHandler()
+    {
+        std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::TIM3_IRQn));
+        SafeRun(func);
+    }
+
     void EXTI0_IRQHandler()
     {
         std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI0_IRQn));
