@@ -26,6 +26,12 @@ extern "C"
         SafeRun(func);
     }
 
+    void WWDG1_IRQHandler()
+    {
+        std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::WWDG_IRQn));
+        SafeRun(func);
+    }
+
     void EXTI0_IRQHandler()
     {
         std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI0_IRQn));
