@@ -1,5 +1,5 @@
 #include <bsp-interface/di.h>
-#include <stm32h743iit6-interrupt/Interrupt.h>
+#include <hal.h>
 
 static void SafeRun(std::function<void()> &func)
 {

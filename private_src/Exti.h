@@ -1,6 +1,7 @@
 #pragma once
 #include <bsp-interface/interrupt/IExtiManager.h>
 #include <functional>
+#include <hal.h>
 
 extern "C"
 {
