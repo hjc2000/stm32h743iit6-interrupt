@@ -1,6 +1,6 @@
 #pragma once
 #include <base/Initializer.h>
-#include <bsp-interface/di.h>
+#include <bsp-interface/di/interrupt.h>
 #include <Exti.h>
 #include <hal.h>
 

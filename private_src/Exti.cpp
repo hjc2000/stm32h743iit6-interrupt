@@ -1,6 +1,6 @@
 #include "Exti.h"
 #include <base/Initializer.h>
-#include <bsp-interface/di.h>
+#include <bsp-interface/di/interrupt.h>
 #include <stdexcept>
 
 static base::Initializer _initializer{

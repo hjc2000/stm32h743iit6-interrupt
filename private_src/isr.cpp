@@ -1,4 +1,4 @@
-#include <bsp-interface/di.h>
+#include <bsp-interface/di/interrupt.h>
 #include <hal.h>
 
 static void SafeRun(std::function<void()> &func)
