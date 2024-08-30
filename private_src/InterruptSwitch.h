@@ -1,5 +1,5 @@
 #pragma once
-#include <base/Initializer.h>
+#include <base/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
 #include <Exti.h>
 #include <hal.h>
@@ -15,8 +15,27 @@ namespace hal
     public:
         static InterruptSwitch &Instance()
         {
-            static InterruptSwitch o;
-            return o;
+            class Getter : public base::SingletonGetter<InterruptSwitch>
+            {
+            public:
+                std::unique_ptr<InterruptSwitch> Create() override
+                {
+                    return std::unique_ptr<InterruptSwitch>{new InterruptSwitch{}};
+                }
+
+                void Lock() override
+                {
+                    __disable_irq();
+                }
+
+                void Unlock() override
+                {
+                    __enable_irq();
+                }
+            };
+
+            Getter g;
+            return g.Instance();
         }
 
         void DisableInterrupt(uint32_t irq) noexcept override
