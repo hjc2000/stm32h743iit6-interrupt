@@ -27,6 +27,36 @@ extern "C"
         }
     }
 
+#pragma region DMA
+
+    void DMA_STR0_IRQHandler()
+    {
+        std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Stream0_IRQn));
+        try
+        {
+            func();
+        }
+        catch (...)
+        {
+        }
+    }
+
+    void DMA_STR1_IRQHandler()
+    {
+        std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::DMA1_Stream1_IRQn));
+        try
+        {
+            func();
+        }
+        catch (...)
+        {
+        }
+    }
+
+#pragma endregion
+
+#pragma region exti
+
     void EXTI0_IRQHandler()
     {
         std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::EXTI0_IRQn));
@@ -86,4 +116,6 @@ extern "C"
         {
         }
     }
+
+#pragma endregion
 }
