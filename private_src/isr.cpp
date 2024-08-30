@@ -27,6 +27,18 @@ extern "C"
         }
     }
 
+    void USART1_IRQHandler()
+    {
+        std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::USART1_IRQn));
+        try
+        {
+            func();
+        }
+        catch (...)
+        {
+        }
+    }
+
 #pragma region DMA
 
     void DMA_STR0_IRQHandler()
