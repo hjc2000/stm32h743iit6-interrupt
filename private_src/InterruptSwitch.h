@@ -14,30 +14,7 @@ namespace hal
         InterruptSwitch() = default;
 
     public:
-        static InterruptSwitch &Instance()
-        {
-            class Getter : public base::SingletonGetter<InterruptSwitch>
-            {
-            public:
-                std::unique_ptr<InterruptSwitch> Create() override
-                {
-                    return std::unique_ptr<InterruptSwitch>{new InterruptSwitch{}};
-                }
-
-                void Lock() override
-                {
-                    __disable_irq();
-                }
-
-                void Unlock() override
-                {
-                    __enable_irq();
-                }
-            };
-
-            Getter g;
-            return g.Instance();
-        }
+        static InterruptSwitch &Instance();
 
         /// @brief 禁用指定中断号的中断
         /// @param irq
@@ -59,7 +36,7 @@ namespace hal
         /// @brief 使能指定中断号的中断，并且设置优先级。
         /// @param irq 中断号。
         /// @param priority 优先级。
-        virtual void EnableInterrupt(uint32_t irq, uint32_t priority) noexcept
+        void EnableInterrupt(uint32_t irq, uint32_t priority) noexcept override
         {
             // 中断优先级可能需要先禁用中断后才能改。不知道，反正做了没错。
             DisableInterrupt(irq);
@@ -68,13 +45,13 @@ namespace hal
         }
 
         /// @brief 禁用全局中断
-        virtual void DisableGlobalInterrupt() noexcept
+        void DisableGlobalInterrupt() noexcept override
         {
             __disable_irq();
         }
 
         /// @brief 启用全局中断
-        virtual void EnableGlobalInterrupt() noexcept
+        void EnableGlobalInterrupt() noexcept override
         {
             __enable_irq();
         }
