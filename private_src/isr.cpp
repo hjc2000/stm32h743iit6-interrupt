@@ -3,6 +3,8 @@
 
 extern "C"
 {
+#pragma region 定时器中断
+
     void TIM3_IRQHandler()
     {
         std::function<void()> &func = DI_IsrManager().GetIsr(static_cast<uint32_t>(IRQn_Type::TIM3_IRQn));
@@ -14,6 +16,8 @@ extern "C"
         {
         }
     }
+
+#pragma endregion
 
     void WWDG1_IRQHandler()
     {

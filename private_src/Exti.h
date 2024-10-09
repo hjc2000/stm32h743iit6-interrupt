@@ -31,30 +31,7 @@ namespace hal
         std::function<void()> _on_exti4_interrupt;
 
     public:
-        static Exti &Instance()
-        {
-            class Getter : public base::SingletonGetter<Exti>
-            {
-            public:
-                std::unique_ptr<Exti> Create() override
-                {
-                    return std::unique_ptr<Exti>{new Exti{}};
-                }
-
-                void Lock() override
-                {
-                    DI_InterruptSwitch().DisableGlobalInterrupt();
-                }
-
-                void Unlock() override
-                {
-                    DI_InterruptSwitch().EnableGlobalInterrupt();
-                }
-            };
-
-            Getter g;
-            return g.Instance();
-        }
+        static Exti &Instance();
 
         /// @brief 注册使用一条外部中断线。
         /// @param line_id 中断线的 id

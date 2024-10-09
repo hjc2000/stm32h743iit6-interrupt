@@ -35,6 +35,33 @@ hal::Exti::Exti()
                            });
 }
 
+hal::Exti &hal::Exti::Instance()
+{
+    {
+        class Getter : public base::SingletonGetter<Exti>
+        {
+        public:
+            std::unique_ptr<Exti> Create() override
+            {
+                return std::unique_ptr<Exti>{new Exti{}};
+            }
+
+            void Lock() override
+            {
+                DI_InterruptSwitch().DisableGlobalInterrupt();
+            }
+
+            void Unlock() override
+            {
+                DI_InterruptSwitch().EnableGlobalInterrupt();
+            }
+        };
+
+        Getter g;
+        return g.Instance();
+    }
+}
+
 void hal::Exti::Register(int line_id, std::function<void()> callback)
 {
     switch (line_id)
