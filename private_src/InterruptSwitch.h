@@ -14,7 +14,7 @@ namespace hal
         InterruptSwitch() = default;
 
     public:
-        static InterruptSwitch &Instance();
+        static_function InterruptSwitch &Instance();
 
         /// @brief 禁用指定中断号的中断
         /// @param irq

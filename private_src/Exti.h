@@ -1,4 +1,5 @@
 #pragma once
+#include <base/define.h>
 #include <base/di/SingletonGetter.h>
 #include <bsp-interface/di/interrupt.h>
 #include <bsp-interface/interrupt/IExtiManager.h>
@@ -31,7 +32,7 @@ namespace hal
         std::function<void()> _on_exti4_interrupt;
 
     public:
-        static Exti &Instance();
+        static_function Exti &Instance();
 
         /// @brief 注册使用一条外部中断线。
         /// @param line_id 中断线的 id
